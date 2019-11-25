@@ -1,4 +1,5 @@
-.idea
-.out
-.src/checker
-.etapa1
+*.class
+.idea/
+out/
+src/checker/
+etapa1
