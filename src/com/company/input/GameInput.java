@@ -19,8 +19,6 @@ public class GameInput {
         this.terrainDescription = terrainDescription;
         this.championsOrder = championsOrder;
         this.roundsOrder = roundsOrder;
-
-//        championsOrder.get(0).split(" ");
     }
 
     public List<String> getTerrainDescription() {
