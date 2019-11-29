@@ -1,12 +1,16 @@
 package com.company.champion;
 
 public class Wizard extends Champion {
-    private final float TERRAIN_BONUS = 0.1F;
-    private final String PREFERRED_TERRAIN = "D";
 
     Wizard(int newPosX, int newPosY) {
         posX = newPosX;
         posY = newPosY;
+        preferredTerrain = 'D';
+        terrainBonus = 0.1F;
+        name = 'W';
+        hp = 400F;
+        xp = 0;
+        level = 0;
     }
 
     @Override
@@ -32,5 +36,15 @@ public class Wizard extends Champion {
     @Override
     public void attack(Wizard wizard) {
 
+    }
+
+    @Override
+    public int firstAbility(float raceModifier) {
+        return 0;
+    }
+
+    @Override
+    public int secondAbility(float raceModifier) {
+        return 0;
     }
 }

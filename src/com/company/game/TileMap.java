@@ -35,7 +35,6 @@ public class TileMap {
     }
 
     public char getTileType(int x, int y) {
-//        System.out.println(map.get(x).get(y).getType());
         return map.get(x).get(y).getType();
     }
 

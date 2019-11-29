@@ -15,19 +15,8 @@ public class Main {
         GameInputLoader gameInputLoader = new GameInputLoader(args[0], args[1]);
         GameInput gameInput = gameInputLoader.load();
 
-        System.out.println(gameInput.getTerrainDescription());
-        System.out.println(gameInput.getChampionsOrder());
-        System.out.println(gameInput.getRoundsOrder());
-
         TileMap.generateMap(gameInput.getTerrainDescription());
         TileMap map = TileMap.getInstance();
-
-        for (int i = 0; i < gameInput.getTerrainDescription().size(); ++i) {
-            for (int j = 0; j < gameInput.getTerrainDescription().get(i).length(); ++j) {
-                System.out.print(map.getTileType(i, j));
-            }
-            System.out.println();
-        }
 
         ArrayList<Champion> champions = new ArrayList<Champion>();
 
@@ -37,10 +26,48 @@ public class Main {
             int posY = Integer.parseInt(currChampion.get(Constants.CHAMPION_POS_Y));
             Champion newChampion = ChampionFactory.getChampion(currChampion
                     .get(Constants.CHAMPION_TYPE), posX, posY);
+            newChampion.setId(i);
+            champions.add(newChampion);
         }
 
-        for (Champion c : champions) {
+        for (int i = 0; i < gameInput.getRoundsOrder().size(); ++i) {
+            for (int j = 0; j < gameInput.getRoundsOrder().get(i).length(); ++j) {
 
+                if (champions.get(j).isAlive() && !champions.get(j).isIncapacitated()) {
+                    char move = gameInput.getRoundsOrder().get(i).charAt(j);
+                    champions.get(j).makeMove(move);
+                }
+
+                if (champions.get(j).isAlive()) {
+                    champions.get(j).hasTerrainModifier(map.getTileType(champions.get(j).getPosX(),
+                            champions.get(j).getPosY()));
+
+                    for (Champion currChampion : champions) {
+                        if (champions.get(j).getPosX() == currChampion.getPosX()
+                                && champions.get(j).getPosY() == currChampion.getPosY()
+                                && !currChampion.hasFoughtThisRound()
+                                && currChampion != champions.get(j)) {
+                            if (champions.get(j).getDamageOverTime().size() > 0) {
+                                champions.get(j).reduceHP(champions.get(j).getDamageOverTime().get(0));
+                                champions.get(j).appliedDamageOverTime();
+                            }
+
+                            if (currChampion.getDamageOverTime().size() > 0) {
+                                currChampion.reduceHP(currChampion.getDamageOverTime().get(0));
+                                currChampion.appliedDamageOverTime();
+                            }
+
+                            champions.get(j).isAttackedBy(currChampion);
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        for (Champion c : champions) {
+            System.out.println(c.getName() + " " + c.getPosX() + " " + c.getPosY());
         }
     }
 }
