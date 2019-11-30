@@ -1,4 +1,4 @@
-package com.company.input;
+package input;
 
 import fileio.FileSystem;
 

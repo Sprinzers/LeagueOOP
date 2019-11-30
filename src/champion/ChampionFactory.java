@@ -1,4 +1,4 @@
-package com.company.champion;
+package champion;
 
 public abstract class ChampionFactory {
     public static Champion getChampion(final String championType, final int posX, final int posY) {

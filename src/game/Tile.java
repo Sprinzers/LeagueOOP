@@ -1,4 +1,4 @@
-package com.company.game;
+package game;
 
 public class Tile {
     private final char type;
