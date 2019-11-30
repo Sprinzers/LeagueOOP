@@ -31,6 +31,7 @@ public class Main {
         }
 
         for (int i = 0; i < gameInput.getRoundsOrder().size(); ++i) {
+
             System.out.println("RUNDA " + i);
 
             for (int j = 0; j < gameInput.getRoundsOrder().get(i).length(); ++j) {
@@ -83,6 +84,7 @@ public class Main {
 
             for (Champion currChampion : champions) {
                 currChampion.setFoughtThisRound(false);
+                currChampion.increaseRoundCounter();
             }
         }
 

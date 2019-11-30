@@ -45,5 +45,24 @@ public final class Constants {
     public static final int ROGUE_HP = 600;
     public static final int ROGUE_HP_GROWTH = 40;
     public static final float ROGUE_TERRAIN_MODIFIER = 0.15f;
+    public static final char ROGUE_PREFERRED_TERRAIN = 'W';
+    public static final float ROGUE_ABILITY_1_BASE = 200f;
+    public static final float ROGUE_ABILITY_1_GROWTH = 20f;
+    public static final float ROGUE_ABILITY_2_BASE = 40f;
+    public static final float ROGUE_ABILITY_2_GROWTH = 10f;
+    public static final int ROGUE_OVERTIME_ROUNDS = 3;
+    public static final int ROGUE_OVERTIME_ROUNDS_WOODS = 6;
+    public static final float ROGUE_CRITICAL_HIT_MULTIPLIER = 1.5f;
+    public static final int ROGUE_CRITICAL_HIT_CHANCE = 3;
 
+    public static final int WIZARD_HP = 400;
+    public static final int WIZARD_HP_GROWTH = 30;
+    public static final float WIZARD_TERRAIN_MODIFIER = 0.1f;
+    public static final char WIZARD_PREFERRED_TERRAIN = 'D';
+    public static final float WIZARD_ABILITY_1_BASE = 0.2f;
+    public static final float WIZARD_ABILITY_1_GROWTH = 0.05f;
+    public static final float WIZARD_ABILITY_1_PERCENT = 0.3f;
+    public static final float WIZARD_ABILITY_2_BASE = 0.35f;
+    public static final float WIZARD_ABILITY_2_GROWTH = 0.02f;
+    public static final float WIZARD_ABILITY_2_CAP = 0.7f;
 }

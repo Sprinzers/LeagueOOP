@@ -20,6 +20,7 @@ public class Knight extends Champion {
         setFirstAbilityGrowth(Constants.KNIGHT_ABILITY_1_GROWTH);
         setSecondAbilityBase(Constants.KNIGHT_ABILITY_2_BASE);
         setSecondAbilityGrowth(Constants.KNIGHT_ABILITY_2_GROWTH);
+        setRoundCounter(0);
     }
 
     @Override
@@ -142,7 +143,7 @@ public class Knight extends Champion {
             executePercent = Constants.KNIGHT_HP_PERCENT_CAP;
         }
 
-        if (wizard.getHp() < wizard.calculateTeoreticalHp() * executePercent) {
+        if (wizard.getHp() <= wizard.calculateTeoreticalHp() * executePercent) {
             wizard.setHp(0);
             return;
         }

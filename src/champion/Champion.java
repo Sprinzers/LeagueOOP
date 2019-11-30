@@ -19,11 +19,11 @@ public abstract class Champion {
     private int id;
     private int incapacitated;
     private boolean foughtThisRound;
-
     private float firstAbilityBase;
     private float firstAbilityGrowth;
     private float secondAbilityBase;
     private float secondAbilityGrowth;
+    private int roundCounter;
 
     /**
      *  Method is used to move the champion
@@ -181,6 +181,18 @@ public abstract class Champion {
         this.incapacitated = incapacitated;
     }
 
+    public int getRoundCounter() {
+        return roundCounter;
+    }
+
+    public void setRoundCounter(int newRoundCounter) {
+        roundCounter = newRoundCounter;
+    }
+
+    public void increaseRoundCounter() {
+        ++roundCounter;
+    }
+
     public void setXp(int newXP) {
         xp = newXP;
     }
@@ -274,7 +286,7 @@ public abstract class Champion {
     }
 
     public float secondAbility() {
-        return secondAbilityBase + secondAbilityBase * level;
+        return secondAbilityBase + secondAbilityGrowth * level;
     }
 
     public void reduceHP(int damage) {

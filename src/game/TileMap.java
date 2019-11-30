@@ -10,6 +10,7 @@ public class TileMap {
     private TileMap() {
         map = new ArrayList<ArrayList<Tile>>();
     }
+
     /**
      *  Method is used to generate the map based on the input.
      */

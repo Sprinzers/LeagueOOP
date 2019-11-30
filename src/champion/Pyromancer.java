@@ -20,6 +20,7 @@ public class Pyromancer extends Champion {
         setFirstAbilityGrowth(Constants.PYRO_ABILITY_1_GROWTH);
         setSecondAbilityBase(Constants.PYRO_ABILITY_2_BASE);
         setSecondAbilityGrowth(Constants.PYRO_ABILITY_2_GROWTH);
+        setRoundCounter(0);
     }
 
     @Override
