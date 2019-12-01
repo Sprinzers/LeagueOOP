@@ -35,6 +35,7 @@ Group: 324 CA
 	- used Singleton pattern to create the map.
 	
 	Champion:
+	
 	- used Factory pattern to create champions;
 	- all fields are private ("make everything as private as possible"), use getters and setters
 	in subclasses;
