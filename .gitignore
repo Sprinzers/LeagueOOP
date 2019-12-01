@@ -3,7 +3,8 @@
 out/
 src/checker/
 etapa1
-checker.sh
-checkstyle.txt
-FileIO.jar
-test/
+src/checker.sh
+src/checkstyle.txt
+src/FileIO.jar
+src/test/
+src/README.txt
