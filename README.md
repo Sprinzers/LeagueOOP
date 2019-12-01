@@ -6,7 +6,7 @@ Student: Murat Eren
 Group: 324 CA
 			Homework Assignment - Stage 1
 
-Double Dispatch:
+	Double Dispatch:
 	- designed an abstract class Champions that is extended by four classes,
 	one for a specific champion type;
 	- implemented the Double Dispatch mechanism to take care of the 
@@ -19,11 +19,11 @@ Double Dispatch:
 	- all champions are stored in a List of Champion, so when isAttackedBy
 	is called, it will call the right attack function, based on the specific subclass
 
-Map:
+	Map:
 	- map is matrix of Tiles, that for now contains just the terrain type;
 	- used Singleton pattern to create the map;
 	
-Champion:
+	Champion:
 	- used Factory pattern to create champions;
 	- all fields are private ("make everything as private as possible"), use
 	getters and setters in subclasses;
