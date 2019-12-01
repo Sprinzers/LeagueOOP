@@ -50,7 +50,6 @@ public class Pyromancer extends Champion {
         if (knight.getDamageOverTime().size() > 0) {
             knight.resetDamageOverTime();
         }
-
         knight.addDamageOverTime(overTimeDamage, Constants.PYRO_OVERTIME_ROUNDS);
 
         knight.reduceHP(totalDamage);
@@ -78,7 +77,6 @@ public class Pyromancer extends Champion {
         if (pyromancer.getDamageOverTime().size() > 0) {
             pyromancer.resetDamageOverTime();
         }
-
         pyromancer.addDamageOverTime(overTimeDamage, Constants.PYRO_OVERTIME_ROUNDS);
 
         pyromancer.reduceHP(totalDamage);
@@ -106,7 +104,6 @@ public class Pyromancer extends Champion {
         if (rogue.getDamageOverTime().size() > 0) {
             rogue.resetDamageOverTime();
         }
-
         rogue.addDamageOverTime(overTimeDamage, Constants.PYRO_OVERTIME_ROUNDS);
 
         rogue.reduceHP(totalDamage);
@@ -134,7 +131,6 @@ public class Pyromancer extends Champion {
         if (wizard.getDamageOverTime().size() > 0) {
             wizard.resetDamageOverTime();
         }
-
         wizard.addDamageOverTime(overTimeDamage, Constants.PYRO_OVERTIME_ROUNDS);
 
         wizard.reduceHP(totalDamage);

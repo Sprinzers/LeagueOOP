@@ -31,11 +31,7 @@ public class Main {
         }
 
         for (int i = 0; i < gameInput.getRoundsOrder().size(); ++i) {
-
-            System.out.println("RUNDA " + i);
-
             for (int j = 0; j < gameInput.getRoundsOrder().get(i).length(); ++j) {
-
                 if (champions.get(j).isAlive() && !champions.get(j).isIncapacitated()) {
                     char move = gameInput.getRoundsOrder().get(i).charAt(j);
                     champions.get(j).makeMove(move);
@@ -54,11 +50,9 @@ public class Main {
                         if (currChampion.verifyOpponent(opponent)) {
                             currChampion.applyDamageOverTime();
                             opponent.applyDamageOverTime();
-
                             if (currChampion.isAlive() && opponent.isAlive()) {
                                 currChampion.isAttackedBy(opponent);
                                 opponent.isAttackedBy(currChampion);
-
                                 currChampion.setFoughtThisRound(true);
                                 opponent.setFoughtThisRound(true);
 
@@ -81,7 +75,6 @@ public class Main {
                     }
                 }
             }
-
             for (Champion currChampion : champions) {
                 currChampion.setFoughtThisRound(false);
                 currChampion.increaseRoundCounter();
