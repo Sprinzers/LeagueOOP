@@ -1,6 +1,7 @@
 package util;
 
 public final class Constants {
+    private Constants() { }
     public static final int CHAMPION_TYPE = 0;
     public static final int CHAMPION_POS_X = 1;
     public static final int CHAMPION_POS_Y = 2;
@@ -13,6 +14,8 @@ public final class Constants {
     public static final float MODIFIER_30 = 0.3f;
     public static final float MODIFIER_40 = 0.4f;
 
+    public static final int XP_INDICATOR = 200;
+    public static final int XP_MULTIPLIER = 40;
     public static final int LEVEL_UP_XP = 250;
     public static final int LEVEL_UP_XP_GROWTH = 50;
     public static final int NAME_INDEX = 9;

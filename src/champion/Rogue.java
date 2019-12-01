@@ -4,7 +4,7 @@ import util.Constants;
 
 public class Rogue extends Champion {
 
-    Rogue(int newPosX, int newPosY) {
+    Rogue(final int newPosX, final int newPosY) {
         setPosX(newPosX);
         setPosY(newPosY);
         setPreferredTerrain(Constants.ROGUE_PREFERRED_TERRAIN);
@@ -12,36 +12,44 @@ public class Rogue extends Champion {
         setHp(Constants.ROGUE_HP);
         setHpStart(Constants.ROGUE_HP);
         setHpGrowth(Constants.ROGUE_HP_GROWTH);
-        setXp(0);
-        setLevel(0);
+        setXp();
+        setLevel();
         setIncapacitated(0);
         setFoughtThisRound(false);
         setFirstAbilityBase(Constants.ROGUE_ABILITY_1_BASE);
         setFirstAbilityGrowth(Constants.ROGUE_ABILITY_1_GROWTH);
         setSecondAbilityBase(Constants.ROGUE_ABILITY_2_BASE);
         setSecondAbilityGrowth(Constants.ROGUE_ABILITY_2_GROWTH);
-        setRoundCounter(0);
+        setRoundCounter();
     }
 
+    /**
+     * Method is used to complete the double-dispatch mechanism.
+     * @param champion that attacks "this"
+     */
     @Override
-    public void isAttackedBy(Champion champion) {
+    public void isAttackedBy(final Champion champion) {
         champion.attack(this);
     }
 
+    /**
+     *  Method is used to calculate the damage against a knight.
+     * @param knight opponent champion.
+     */
     @Override
-    public void attack(Knight knight) {
+    public void attack(final Knight knight) {
+        // base damages
         float firstDamage = firstAbility();
         float secondDamage = secondAbility();
-        float overTime = secondDamage;
-
+        // apply critical hit
         if (getRoundCounter() % Constants.ROGUE_CRITICAL_HIT_CHANCE == 0) {
             if (getApplyTerrainModifier()) {
                 firstDamage *= Constants.ROGUE_CRITICAL_HIT_MULTIPLIER;
             } else {
-                setRoundCounter(0);
+                setRoundCounter();
             }
         }
-
+        // terrain modifier
         if (getApplyTerrainModifier()) {
             firstDamage += firstDamage * getTerrainModifier();
             secondDamage += secondDamage * getTerrainModifier();
@@ -49,12 +57,10 @@ public class Rogue extends Champion {
         } else {
             knight.setIncapacitated(Constants.ROGUE_OVERTIME_ROUNDS);
         }
-
+        // race modifier
         firstDamage -= firstDamage * Constants.MODIFIER_10;
         secondDamage -= secondDamage * Constants.MODIFIER_20;
-
-        int totalDamage = Math.round(firstDamage) + Math.round(secondDamage);
-
+        // DOT effects
         if (knight.getDamageOverTime().size() > 0) {
             knight.resetDamageOverTime();
         }
@@ -64,24 +70,29 @@ public class Rogue extends Champion {
         } else {
             knight.addDamageOverTime(Math.round(secondDamage), Constants.ROGUE_OVERTIME_ROUNDS);
         }
-
+        // apply damage to enemy
+        int totalDamage = Math.round(firstDamage) + Math.round(secondDamage);
         knight.reduceHP(totalDamage);
     }
 
+    /**
+     *  Method is used to calculate the damage against a pyromancer.
+     * @param pyromancer opponent champion.
+     */
     @Override
-    public void attack(Pyromancer pyromancer) {
+    public void attack(final Pyromancer pyromancer) {
+        // base damages
         float firstDamage = firstAbility();
         float secondDamage = secondAbility();
-        float overTime = secondDamage;
-
+        // apply critical hit
         if (getRoundCounter() % Constants.ROGUE_CRITICAL_HIT_CHANCE == 0) {
             if (getApplyTerrainModifier()) {
                 firstDamage *= Constants.ROGUE_CRITICAL_HIT_MULTIPLIER;
             } else {
-                setRoundCounter(0);
+                setRoundCounter();
             }
         }
-
+        // terrain modifier
         if (getApplyTerrainModifier()) {
             firstDamage += firstDamage * getTerrainModifier();
             secondDamage += secondDamage * getTerrainModifier();
@@ -89,12 +100,10 @@ public class Rogue extends Champion {
         } else {
             pyromancer.setIncapacitated(Constants.ROGUE_OVERTIME_ROUNDS);
         }
-
+        // race modifier
         firstDamage += firstDamage * Constants.MODIFIER_25;
         secondDamage += secondDamage * Constants.MODIFIER_20;
-
-        int totalDamage = Math.round(firstDamage) + Math.round(secondDamage);
-
+        // DOT effects
         if (pyromancer.getDamageOverTime().size() > 0) {
             pyromancer.resetDamageOverTime();
         }
@@ -104,24 +113,29 @@ public class Rogue extends Champion {
         } else {
             pyromancer.addDamageOverTime(Math.round(secondDamage), Constants.ROGUE_OVERTIME_ROUNDS);
         }
-
+        // apply damage to enemy
+        int totalDamage = Math.round(firstDamage) + Math.round(secondDamage);
         pyromancer.reduceHP(totalDamage);
     }
 
+    /**
+     *  Method is used to calculate the damage against a rogue.
+     * @param rogue opponent champion.
+     */
     @Override
-    public void attack(Rogue rogue) {
+    public void attack(final Rogue rogue) {
+        // base damages
         float firstDamage = firstAbility();
         float secondDamage = secondAbility();
-        float overTime = secondDamage;
-
+        // apply critical hit
         if (getRoundCounter() % Constants.ROGUE_CRITICAL_HIT_CHANCE == 0) {
             if (getApplyTerrainModifier()) {
                 firstDamage *= Constants.ROGUE_CRITICAL_HIT_MULTIPLIER;
             } else {
-                setRoundCounter(0);
+                setRoundCounter();
             }
         }
-
+        // terrain modifier
         if (getApplyTerrainModifier()) {
             firstDamage += firstDamage * getTerrainModifier();
             secondDamage += secondDamage * getTerrainModifier();
@@ -129,12 +143,10 @@ public class Rogue extends Champion {
         } else {
             rogue.setIncapacitated(Constants.ROGUE_OVERTIME_ROUNDS);
         }
-
+        // race modifier
         firstDamage += firstDamage * Constants.MODIFIER_20;
         secondDamage -= secondDamage * Constants.MODIFIER_10;
-
-        int totalDamage = Math.round(firstDamage) + Math.round(secondDamage);
-
+        // DOT effects
         if (rogue.getDamageOverTime().size() > 0) {
             rogue.resetDamageOverTime();
         }
@@ -144,24 +156,29 @@ public class Rogue extends Champion {
         } else {
             rogue.addDamageOverTime(Math.round(secondDamage), Constants.ROGUE_OVERTIME_ROUNDS);
         }
-
+        // apply damage to enemy
+        int totalDamage = Math.round(firstDamage) + Math.round(secondDamage);
         rogue.reduceHP(totalDamage);
     }
 
+    /**
+     *  Method is used to calculate the damage against a wizard.
+     * @param wizard opponent champion.
+     */
     @Override
-    public void attack(Wizard wizard) {
+    public void attack(final Wizard wizard) {
+        // base damages
         float firstDamage = firstAbility();
         float secondDamage = secondAbility();
-        float overTime = secondDamage;
-
+        // apply critical hit
         if (getRoundCounter() % Constants.ROGUE_CRITICAL_HIT_CHANCE == 0) {
             if (getApplyTerrainModifier()) {
                 firstDamage *= Constants.ROGUE_CRITICAL_HIT_MULTIPLIER;
             } else {
-                setRoundCounter(0);
+                setRoundCounter();
             }
         }
-
+        // terrain modifier
         if (getApplyTerrainModifier()) {
             firstDamage += firstDamage * getTerrainModifier();
             secondDamage += secondDamage * getTerrainModifier();
@@ -169,12 +186,10 @@ public class Rogue extends Champion {
         } else {
             wizard.setIncapacitated(Constants.ROGUE_OVERTIME_ROUNDS);
         }
-
+        // race modifier
         firstDamage += firstDamage * Constants.MODIFIER_25;
         secondDamage += secondDamage * Constants.MODIFIER_25;
-
-        int totalDamage = Math.round(firstDamage) + Math.round(secondDamage);
-
+        // DOT efects
         if (wizard.getDamageOverTime().size() > 0) {
             wizard.resetDamageOverTime();
         }
@@ -184,7 +199,8 @@ public class Rogue extends Champion {
         } else {
             wizard.addDamageOverTime(Math.round(secondDamage), Constants.ROGUE_OVERTIME_ROUNDS);
         }
-
+        // apply damage to enemy
+        int totalDamage = Math.round(firstDamage) + Math.round(secondDamage);
         wizard.reduceHP(totalDamage);
     }
 }

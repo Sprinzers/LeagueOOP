@@ -14,22 +14,23 @@ public class GameInput {
         roundsOrder = null;
     }
 
-    public GameInput(final List<String> terrainDescription, final ArrayList<ArrayList<String>> championsOrder,
+    public GameInput(final List<String> terrainDescription,
+                     final ArrayList<ArrayList<String>> championsOrder,
                      final List<String> roundsOrder) {
         this.terrainDescription = terrainDescription;
         this.championsOrder = championsOrder;
         this.roundsOrder = roundsOrder;
     }
 
-    public List<String> getTerrainDescription() {
+    public final List<String> getTerrainDescription() {
         return terrainDescription;
     }
 
-    public ArrayList<ArrayList<String>> getChampionsOrder() {
+    public final ArrayList<ArrayList<String>> getChampionsOrder() {
         return championsOrder;
     }
 
-    public List<String> getRoundsOrder() {
+    public final List<String> getRoundsOrder() {
         return roundsOrder;
     }
 

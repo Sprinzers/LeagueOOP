@@ -3,7 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileMap {
+public final class TileMap {
     private final ArrayList<ArrayList<Tile>> map;
     private static TileMap instance = null;
 
@@ -14,7 +14,7 @@ public class TileMap {
     /**
      *  Method is used to generate the map based on the input.
      */
-    public static void generateMap(List<String> terrain) {
+    public static void generateMap(final List<String> terrain) {
         instance = new TileMap();
         for (int i = 0; i < terrain.size(); ++i) {
             ArrayList<Tile> currLine = new ArrayList<Tile>();
@@ -31,11 +31,11 @@ public class TileMap {
      *  Method is used to add one created line to the map.
      * @param mapLine newly created line that is added to the map
      */
-    public void addMapLine(ArrayList<Tile> mapLine) {
+    public void addMapLine(final ArrayList<Tile> mapLine) {
         map.add(mapLine);
     }
 
-    public char getTileType(int x, int y) {
+    public char getTileType(final int x, final int y) {
         return map.get(x).get(y).getType();
     }
 

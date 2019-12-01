@@ -1,5 +1,6 @@
 package input;
 
+import champion.Champion;
 import fileio.FileSystem;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class GameInputLoader {
         this.outputPath = outputPath;
     }
 
-    public GameInput load() {
+    public final GameInput load() {
         int roundsNum = 0;
         int playersNum = 0;
         int mapLength = 0;
@@ -52,5 +53,20 @@ public class GameInputLoader {
                 e.printStackTrace();
             }
         return new GameInput(terrainTypes, championsOrder, roundsOrder);
+    }
+
+    public final void write(final ArrayList<Champion> champions) {
+        try {
+            FileSystem fout = new FileSystem(inputPath, outputPath);
+
+            for (Champion currChampion : champions) {
+                fout.writeWord(currChampion.printFinalStats());
+                fout.writeNewLine();
+            }
+
+            fout.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -24,12 +24,13 @@ public abstract class Champion {
     private float secondAbilityBase;
     private float secondAbilityGrowth;
     private int roundCounter;
+    private int hpBeforeRound;
 
     /**
-     *  Method is used to move the champion
-     * @param newMove direction of the move
+     *  Method is used to move the champion.
+     * @param newMove represents the direction of the move
      */
-    public void makeMove(char newMove) {
+    public void makeMove(final char newMove) {
         switch (newMove) {
             case 'U':
                 --posX;
@@ -50,6 +51,10 @@ public abstract class Champion {
         }
     }
 
+    /**
+     *  Method is used to display the final status of a champion.
+     * @return champion stats if he is alive, or it will display "dead"
+     */
     public String printFinalStats() {
         if (isAlive()) {
             return (getName() + " " + level + " " + xp + " " + hp + " "
@@ -64,7 +69,7 @@ public abstract class Champion {
      * @param champion opponent that "this" will fight
      * @return true if the fight can take place, false otherwise
      */
-    public boolean verifyOpponent(Champion champion) {
+    public boolean verifyOpponent(final Champion champion) {
         return this.posX == champion.getPosX() && this.posY == champion.getPosY()
                 && this.id != champion.getId() && !this.foughtThisRound
                 && !champion.getFoughtThisRound();
@@ -76,13 +81,13 @@ public abstract class Champion {
      * @param levelLoser level of the champion that died after the fight
      * @return true if the winner accumulated enough XP to level up, false if otherwise
      */
-    public boolean awardXp(int levelLoser) {
+    public boolean awardXp(final int levelLoser) {
         int levelDiff = getLevel() - levelLoser;
-        int xpWinner = Math.max(0, 200 - levelDiff * 40);
+        int xpWinner = Math.max(0, Constants.XP_INDICATOR - levelDiff * Constants.XP_MULTIPLIER);
         xp += xpWinner;
 
         boolean leveledUp = false;
-        while (xp > Constants.LEVEL_UP_XP + Constants.LEVEL_UP_XP_GROWTH * level) {
+        while (xp >= Constants.LEVEL_UP_XP + Constants.LEVEL_UP_XP_GROWTH * level) {
             ++level;
             leveledUp = true;
         }
@@ -100,7 +105,7 @@ public abstract class Champion {
     /**
      *  Method is used to determine if the champion is incapacitated.
      *  The field "incapacitated" stores the number of rounds he will be under the effect.
-     * @return true if the champion is under an incapacitation effect
+     * @return true if the champion is under an incapacitation effect, false otherwise
      */
     public boolean isIncapacitated() {
         if (incapacitated > 0) {
@@ -122,11 +127,11 @@ public abstract class Champion {
     }
 
     /**
-     *  Method is used to store the damage over time from the specific abilites.
+     *  Method is used to store the damage over time from the specific abilities.
      * @param damage damage to be taken over time
      * @param rounds the number of rounds the DOT effect will be active
      */
-    public void addDamageOverTime(int damage, int rounds) {
+    final void addDamageOverTime(final int damage, final int rounds) {
         for (int i = 0; i < rounds; ++i) {
             damageOverTime.add(damage);
         }
@@ -136,7 +141,7 @@ public abstract class Champion {
      *  Method is used to overwrite the current damage over time effects when the champion is hit
      *  with a new ability that has a damage over time effect.
      */
-    public void resetDamageOverTime() {
+    final void resetDamageOverTime() {
         damageOverTime.clear();
     }
 
@@ -145,99 +150,120 @@ public abstract class Champion {
      *  a bonus.
      * @param terrainType the type of the current location of the champion
      */
-    public void hasTerrainModifier(char terrainType) {
-        if (preferredTerrain == terrainType) {
-            applyTerrainModifier = true;
-        } else {
-            applyTerrainModifier = false;
-        }
+    public void hasTerrainModifier(final char terrainType) {
+        applyTerrainModifier = preferredTerrain == terrainType;
     }
 
-    public int calculateTeoreticalHp() {
+    /**
+     *  Method is used to determine the maximum possible HP at a given point.
+     * @return maximum possible HP
+     */
+    final int calculateTeoreticalHp() {
         return hpStart + hpGrowth * level;
     }
-
-    public ArrayList<Integer> getDamageOverTime() {
-        return damageOverTime;
-    }
-
-    public char getName() {
+    /**
+     *  Method is used to determine the name of a champion by its class.
+     * @return  char representing champion type
+     */
+    private char getName() {
         return getClass().getName().charAt(Constants.NAME_INDEX);
     }
 
-    public boolean getApplyTerrainModifier() {
+    final ArrayList<Integer> getDamageOverTime() {
+        return damageOverTime;
+    }
+
+    /**
+     *  Method is used to access the field that determines if the terrain modifier
+     *  should be active in a particular location.
+     * @return  true if the terrain modifier should be applied, false if otherwise
+     */
+    boolean getApplyTerrainModifier() {
         return applyTerrainModifier;
     }
 
-    public boolean getFoughtThisRound() {
+    private boolean getFoughtThisRound() {
         return foughtThisRound;
     }
 
-    public void setFoughtThisRound(boolean fightStatus) {
+    /**
+     *  Method is used to set the status of the champion involvement in a round.
+     * @param fightStatus true if the champion fought, false if otherwise
+     */
+    public void setFoughtThisRound(final boolean fightStatus) {
         foughtThisRound = fightStatus;
     }
 
-    public void setIncapacitated(int incapacitated) {
+    /**
+     *  Method is a setter for incapacitated field that stores the number of rounds
+     *  the champion is under the incapacitation effect.
+     * @param incapacitated number of incapacitation rounds
+     */
+    void setIncapacitated(final int incapacitated) {
         this.incapacitated = incapacitated;
     }
 
-    public int getRoundCounter() {
+    final int getRoundCounter() {
         return roundCounter;
     }
 
-    public void setRoundCounter(int newRoundCounter) {
-        roundCounter = newRoundCounter;
+    final void setRoundCounter() {
+        roundCounter = 0;
     }
 
-    public void increaseRoundCounter() {
+    public final void increaseRoundCounter() {
         ++roundCounter;
     }
 
-    public void setXp(int newXP) {
-        xp = newXP;
+    final void setXp() {
+        xp = 0;
     }
 
-    public int getHp() {
+    public final int getHp() {
         return hp;
     }
 
-    public void setHp(int hp) {
+    final void setHp(final int hp) {
         this.hp = hp;
     }
 
-    public int getHpGrowth() {
-        return hpGrowth;
-    }
-
-    public void setHpGrowth(int newHpGrowth) {
+    final void setHpGrowth(final int newHpGrowth) {
         this.hpGrowth = newHpGrowth;
     }
 
-    public void setHpStart(int newHpStart) {
+    final void setHpStart(final int newHpStart) {
         this.hpStart = newHpStart;
     }
 
-    public int getLevel() {
+    final int getHpBeforeRound() {
+        return hpBeforeRound;
+    }
+
+    public final void setHpBeforeRound(final int newHp) {
+        hpBeforeRound = newHp;
+    }
+
+    public final int getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    final void setLevel() {
+        this.level = 0;
     }
 
-    public int getPosX() {
+    public final int getPosX() {
         return posX;
     }
 
-    public void setPosX(int posX) {
+    final void setPosX(final int posX) {
         this.posX = posX;
     }
 
-    public int getPosY() {
+    public final int getPosY() {
         return posY;
     }
 
-    public void setPosY(int posY) {
+    final void setPosY(final int posY) {
         this.posY = posY;
     }
 
@@ -245,51 +271,47 @@ public abstract class Champion {
         return id;
     }
 
-    public void setId(int newId) {
+    public final void setId(final int newId) {
         id = newId;
     }
 
-    public char getPreferredTerrain() {
-        return preferredTerrain;
-    }
-
-    public void setPreferredTerrain(char preferredTerrain) {
+    final void setPreferredTerrain(final char preferredTerrain) {
         this.preferredTerrain = preferredTerrain;
     }
 
-    public float getTerrainModifier() {
+    final float getTerrainModifier() {
         return terrainModifier;
     }
 
-    public void setTerrainModifier(float terrainModifier) {
+    final void setTerrainModifier(final float terrainModifier) {
         this.terrainModifier = terrainModifier;
     }
 
-    public void setFirstAbilityBase(float firstAbilityBase) {
+    final void setFirstAbilityBase(final float firstAbilityBase) {
         this.firstAbilityBase = firstAbilityBase;
     }
 
-    public void setFirstAbilityGrowth(float firstAbilityGrowth) {
+    final void setFirstAbilityGrowth(final float firstAbilityGrowth) {
         this.firstAbilityGrowth = firstAbilityGrowth;
     }
 
-    public void setSecondAbilityBase(float secondAbilityBase) {
+    final void setSecondAbilityBase(final float secondAbilityBase) {
         this.secondAbilityBase = secondAbilityBase;
     }
 
-    public void setSecondAbilityGrowth(float secondAbilityGrowth) {
+    final void setSecondAbilityGrowth(final float secondAbilityGrowth) {
         this.secondAbilityGrowth = secondAbilityGrowth;
     }
 
-    public float firstAbility() {
+    final float firstAbility() {
         return firstAbilityBase + firstAbilityGrowth * level;
     }
 
-    public float secondAbility() {
+    final float secondAbility() {
         return secondAbilityBase + secondAbilityGrowth * level;
     }
 
-    public void reduceHP(int damage) {
+    final void reduceHP(final int damage) {
         hp -= damage;
     }
 
